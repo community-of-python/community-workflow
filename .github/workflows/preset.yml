@@ -3,6 +3,7 @@ name: CI Pipeline
 
 on:
   workflow_call:
+    secrets: inherit
 
 jobs:
   lint-and-typecheck:
