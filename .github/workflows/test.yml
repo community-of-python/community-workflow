@@ -2,7 +2,6 @@ name: Test and Coverage
 
 on:
   workflow_call:
-    secrets: inherit
 
 jobs:
   test:
