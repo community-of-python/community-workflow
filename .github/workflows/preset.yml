@@ -1,0 +1,26 @@
+# base-workflows/.github/workflows/ci-pipeline.yml
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  release:
+    types:
+      - published
+
+jobs:
+  lint-and-typecheck:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    uses: community-of-python/.github/workflows/lint.yml@main
+
+  test-and-coverage:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    uses: community-of-python/.github/workflows/test.yml@main
+
+  publish:
+    if: github.event_name == 'release' && github.event.action == 'published'
+    uses: community-of-python/.github/workflows/publish.yml@main
