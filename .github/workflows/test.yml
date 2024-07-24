@@ -30,8 +30,9 @@ jobs:
         run: |
           pytest . --cov=. --cov-report xml -n 4
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4.0.1
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
           flags: unittests
           name: codecov-${{ matrix.python-version }}
