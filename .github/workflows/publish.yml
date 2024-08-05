@@ -19,6 +19,6 @@ jobs:
           key: publish-${{ hashFiles('pyproject.toml') }}
       - run: pip install -U poetry
       - uses: extractions/setup-just@v2
-      - run: poetry install --all-extras --with dev
+      - run: poetry install --all-extras --without dev
       - run: poetry version ${{ github.event.release.tag_name }}
       - run: poetry publish --build --username __token__ --password ${{ secrets.PYPI_TOKEN }}
