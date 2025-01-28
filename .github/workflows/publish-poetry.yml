@@ -1,0 +1,25 @@
+name: Publish
+
+on:
+  workflow_call:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/poetry
+          key: publish-${{ hashFiles('pyproject.toml') }}
+      - run: pip install -U poetry==1.8.5
+      - uses: extractions/setup-just@v2
+      - run: poetry install --all-extras --without dev
+      - run: poetry version ${{ github.event.release.tag_name }}
+      - run: poetry publish --build --username __token__ --password ${{ secrets.PYPI_TOKEN }}
+      - run: set +x
