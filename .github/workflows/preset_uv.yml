@@ -16,19 +16,19 @@ on:
 jobs:
   lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    uses: community-of-python/community-workflow/.github/workflows/lint.yml@2-add-uv-support
+    uses: community-of-python/community-workflow/.github/workflows/lint.yml@main
     with:
       python-version: ${{ inputs.python-version }}
     secrets: inherit
 
   test:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    uses: community-of-python/community-workflow/.github/workflows/test.yml@2-add-uv-support
+    uses: community-of-python/community-workflow/.github/workflows/test.yml@main
     with:
       python-version: ${{ inputs.python-version }}
     secrets: inherit
 
   publish:
     if: github.event_name == 'release' && github.event.action == 'published'
-    uses: community-of-python/community-workflow/.github/workflows/publish.yml@2-add-uv-support
+    uses: community-of-python/community-workflow/.github/workflows/publish.yml@main
     secrets: inherit
