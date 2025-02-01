@@ -3,19 +3,32 @@ name: CI Pipeline
 
 on:
   workflow_call:
+    inputs:
+      python-version:
+        required: true
+        type: string
+    secrets:
+      CODECOV_TOKEN:
+        required: true
+      PYPI_TOKEN:
+        required: true
 
 jobs:
-  lint-and-typecheck:
+  lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    uses: community-of-python/community-workflow/.github/workflows/lint_poetry.yml@main
+    uses: community-of-python/community-workflow/.github/workflows/lint.yml@main
+    with:
+      python-version: ${{ inputs.python-version }}
     secrets: inherit
 
-  test-and-coverage:
+  test:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    uses: community-of-python/community-workflow/.github/workflows/test_poetry.yml@main
+    uses: community-of-python/community-workflow/.github/workflows/test.yml@main
+    with:
+      python-version: ${{ inputs.python-version }}
     secrets: inherit
 
   publish:
     if: github.event_name == 'release' && github.event.action == 'published'
-    uses: community-of-python/community-workflow/.github/workflows/publish_poetry.yml@main
+    uses: community-of-python/community-workflow/.github/workflows/publish.yml@main
     secrets: inherit
