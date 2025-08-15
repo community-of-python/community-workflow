@@ -16,7 +16,6 @@ jobs:
     uses: community-of-python/community-workflow/.github/workflows/lint.yml@main
     with:
       python-version: ${{ inputs.python-version }}
-      os: ${{ inputs.os }}
     secrets: inherit
 
   test:
