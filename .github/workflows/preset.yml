@@ -7,20 +7,24 @@ on:
       python-version:
         required: true
         type: string
-
+      os:
+        required: false
+        type: string
+        default: '["ubuntu-latest","macos-latest","windows-latest"]'
 jobs:
   lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    uses: community-of-python/community-workflow/.github/workflows/lint.yml@main
+    uses: community-of-python/community-workflow/.github/workflows/lint.yml@optional-os
     with:
       python-version: ${{ inputs.python-version }}
     secrets: inherit
 
   test:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    uses: community-of-python/community-workflow/.github/workflows/test.yml@main
+    uses: community-of-python/community-workflow/.github/workflows/test.yml@optional-os
     with:
       python-version: ${{ inputs.python-version }}
+      os: ${{ inputs.os }}
     secrets: inherit
 
   publish:
