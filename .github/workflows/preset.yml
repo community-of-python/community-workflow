@@ -7,9 +7,7 @@ on:
       python-version:
         required: true
         type: string
-      os:
-        required: true
-        type: string
+
 jobs:
   lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
@@ -23,7 +21,6 @@ jobs:
     uses: community-of-python/community-workflow/.github/workflows/test.yml@main
     with:
       python-version: ${{ inputs.python-version }}
-      os: ${{ inputs.os }}
     secrets: inherit
 
   publish:
