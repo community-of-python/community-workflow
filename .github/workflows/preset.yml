@@ -14,14 +14,14 @@ on:
 jobs:
   lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    uses: community-of-python/community-workflow/.github/workflows/lint.yml@optional-os
+    uses: community-of-python/community-workflow/.github/workflows/lint.yml@main
     with:
       python-version: ${{ inputs.python-version }}
     secrets: inherit
 
   test:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    uses: community-of-python/community-workflow/.github/workflows/test.yml@optional-os
+    uses: community-of-python/community-workflow/.github/workflows/test.yml@main
     with:
       python-version: ${{ inputs.python-version }}
       os: ${{ inputs.os }}
